@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateDrinksLog(Context context){
         final TextView displayDrinksTextBox = (TextView) findViewById(R.id.displayDrinksTextBox);
-        displayDrinksTextBox.setText(Drink.getLastDrink(context));
+        displayDrinksTextBox.setText(Drink.getLastDrink(context).toString());
     }
 
     private void addSaveCupListenerToButton(final Context context){

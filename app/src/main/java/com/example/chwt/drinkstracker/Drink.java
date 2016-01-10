@@ -16,12 +16,23 @@ import java.util.Date;
  */
 public class Drink {
 
+    public int id;
     public String type;
     public int quantity_in_oz;
+    public String timestamp;
 
     public Drink(){
+        id = -1;
         type = "water";
         quantity_in_oz = 8;
+        timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+    }
+
+    public Drink(int id, String type, int quantity_in_oz, String timestamp){
+        this.type = type;
+        this.id = id;
+        this.quantity_in_oz = quantity_in_oz;
+        this.timestamp = timestamp;
     }
 
     public long save(Context context){
@@ -32,18 +43,20 @@ public class Drink {
         ContentValues values = new ContentValues();
         values.put(DrinkContract.Drink.COLUMN_NAME_TYPE, type);
         values.put(DrinkContract.Drink.COLUMN_NAME_QUANTITY, quantity_in_oz);
-        values.put(DrinkContract.Drink.COLUMN_NAME_TIMESTAMP,
-                new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+        values.put(DrinkContract.Drink.COLUMN_NAME_TIMESTAMP, timestamp
+                );
 
         long newDrinkId = db.insert(
                 DrinkContract.Drink.TABLE_NAME,
                 null,
                 values
         );
-        return newDrinkId;
+
+        this.id = (int)newDrinkId;
+        return this.id;
     }
 
-    public static String getLastDrink(Context context){
+    public static Drink getLastDrink(Context context){
         DrinkDbHelper drinkDbHelper = new DrinkDbHelper(context);
         SQLiteDatabase db = drinkDbHelper.getReadableDatabase();
 
@@ -69,17 +82,30 @@ public class Drink {
         );
 
         cursor.moveToLast();
+        int idColumnIndex = cursor.getColumnIndex(DrinkContract.Drink._ID);
+        int typeColumnIndex = cursor.getColumnIndex((DrinkContract.Drink.COLUMN_NAME_TYPE));
         int quantityColumnIndex =  cursor.getColumnIndex(DrinkContract.Drink.COLUMN_NAME_QUANTITY);
         int timestampColumnIndex = cursor.getColumnIndex(DrinkContract.Drink.COLUMN_NAME_TIMESTAMP);
-        int quantityOfLastDrinkInt = convertOzToCups(cursor.getInt(quantityColumnIndex));
-        Integer quantityOfLastDrinkInteger = quantityOfLastDrinkInt;
-        String quantityOfLastDrink = quantityOfLastDrinkInteger.toString();
-        String timeStampOfLastDrink = cursor.getString(timestampColumnIndex);
 
-        return "Quantity: " + quantityOfLastDrink + ", \n time: " + timeStampOfLastDrink;
+        int idOfLastDrink = cursor.getInt(idColumnIndex);
+        String typeOfLastDrink = cursor.getString(typeColumnIndex);
+        String timestampOfLastDrink = cursor.getString(timestampColumnIndex);
+        int quantityOfLastDrink = cursor.getInt(quantityColumnIndex);
+
+        Drink lastDrink = new Drink(idOfLastDrink, typeOfLastDrink, quantityOfLastDrink, timestampOfLastDrink);
+
+        return lastDrink;
+        //return "Quantity: " + quantityOfLastDrink + ", \n time: " + timeStampOfLastDrink;
     }
 
     private static int convertOzToCups(int oz){
         return oz / 8;
+    }
+
+    public String toString(){
+        Integer id = this.id;
+        Integer quantity = this.quantity_in_oz;
+
+        return "id: " + id.toString() + ", type: " + this.type + ", quantity: " + quantity.toString() + ", timestamp: " + this.timestamp;
     }
 }
