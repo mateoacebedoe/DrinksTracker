@@ -125,11 +125,10 @@ public class Drink {
         Drink lastDrink = new Drink(idOfLastDrink, typeOfLastDrink, quantityOfLastDrink, timestampOfLastDrink);
 
         return lastDrink;
-        //return "Quantity: " + quantityOfLastDrink + ", \n time: " + timeStampOfLastDrink;
     }
 
-    private static int convertOzToCups(int oz){
-        return oz / 8;
+    public static int getTodaysQuantityInCups(Context context){
+        return convertOzToCups(Drink.sumDrinkQuantity(Drink.getTodaysDrinks(context)));
     }
 
     public String toString(){
@@ -137,5 +136,22 @@ public class Drink {
         Integer quantity = this.quantity_in_oz;
 
         return "id: " + id.toString() + ", type: " + this.type + ", quantity: " + quantity.toString() + ", timestamp: " + this.timestamp;
+    }
+
+
+    //Private Methods
+
+
+    private static int convertOzToCups(int oz){
+        return oz / 8;
+    }
+
+    private static int sumDrinkQuantity(Drink[] Drinks){
+        int sum = 0;
+        for(int i=0; i< Drinks.length; i++){
+            sum = sum + Drinks[i].quantity_in_oz;
+        }
+
+        return sum;
     }
 }

@@ -77,13 +77,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView displayDrinksTextBox = (TextView) findViewById(R.id.displayDrinksTextBox);
 
         String drinksLog = "";
-        Drink[] todaysDrinks = Drink.getTodaysDrinks(context);
-        for(int i = 0; i < todaysDrinks.length; i++){
-            drinksLog = drinksLog + todaysDrinks[i] + "\n";
-        }
-
-
-        displayDrinksTextBox.setText(drinksLog);
+        Integer todaysQuantity = Drink.getTodaysQuantityInCups(context);
+        displayDrinksTextBox.setText("Today you have drank " + todaysQuantity.toString() + " cups!");
     }
 
     private void addSaveCupListenerToButton(final Context context){
