@@ -29,5 +29,15 @@ public final class DrinkContract {
                         ")";
 
         public static final String SQL_DROP_DRINKS_TABLE = "DROP TABLE IF EXISTS" + Drink.TABLE_NAME;
+
+        public static String[] getAllColumns(){
+            String [] columns = {
+                    DrinkContract.Drink._ID,
+                    DrinkContract.Drink.COLUMN_NAME_TYPE,
+                    DrinkContract.Drink.COLUMN_NAME_QUANTITY,
+                    DrinkContract.Drink.COLUMN_NAME_TIMESTAMP
+            };
+            return columns;
+        }
     }
 }

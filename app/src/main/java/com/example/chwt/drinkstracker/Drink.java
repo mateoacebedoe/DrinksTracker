@@ -56,26 +56,56 @@ public class Drink {
         return this.id;
     }
 
-    public static Drink getLastDrink(Context context){
+    public static Drink[] getTodaysDrinks(Context context){
         DrinkDbHelper drinkDbHelper = new DrinkDbHelper(context);
         SQLiteDatabase db = drinkDbHelper.getReadableDatabase();
 
-        String[] projection = {
-                DrinkContract.Drink._ID,
-                DrinkContract.Drink.COLUMN_NAME_TYPE,
-                DrinkContract.Drink.COLUMN_NAME_QUANTITY,
-                DrinkContract.Drink.COLUMN_NAME_TIMESTAMP
-        };
 
-        String selection = null;
-        String[] selectionArgs = null;
+        String[] projection = DrinkContract.Drink.getAllColumns();
 
+        String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        String selection = DrinkContract.Drink.COLUMN_NAME_TIMESTAMP + ">= '" + todaysDate + "';";
 
         Cursor cursor = db.query(
                 DrinkContract.Drink.TABLE_NAME,
                 projection,
                 selection,
-                selectionArgs,
+                null,
+                null,
+                null,
+                null
+        );
+
+
+        Drink[] drinkList = new Drink[cursor.getCount()];
+        if (cursor .moveToFirst()) {
+            int i = 0;
+            while (cursor.isAfterLast() == false) {
+                int id = cursor.getInt(cursor.getColumnIndex(DrinkContract.Drink._ID));
+                String type = cursor.getString((cursor.getColumnIndex((DrinkContract.Drink.COLUMN_NAME_TYPE))));
+                int quantity = cursor.getInt(cursor.getColumnIndex(DrinkContract.Drink.COLUMN_NAME_QUANTITY));
+                String timestamp = cursor.getString(cursor.getColumnIndex(DrinkContract.Drink.COLUMN_NAME_TIMESTAMP));
+
+                drinkList[i] = new Drink(id, type, quantity, timestamp);
+                cursor.moveToNext();
+                i = i + 1;
+            }
+        }
+
+        return drinkList;
+    }
+
+    public static Drink getLastDrink(Context context){
+        DrinkDbHelper drinkDbHelper = new DrinkDbHelper(context);
+        SQLiteDatabase db = drinkDbHelper.getReadableDatabase();
+
+        String[] projection = DrinkContract.Drink.getAllColumns();
+
+        Cursor cursor = db.query(
+                DrinkContract.Drink.TABLE_NAME,
+                projection,
+                null,
+                null,
                 null,
                 null,
                 null
