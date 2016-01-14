@@ -2,8 +2,6 @@ package com.example.chwt.drinkstracker;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -22,9 +20,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        displayAmountConsumedToday(context);
 
-        updateDrinksLog(context);
-        addSaveCupListenerToButton(context);
+        Button addCupButton = (Button) findViewById(R.id.AddCupButton);
+        Button addOzAmmountButton = (Button) findViewById(R.id.AddOzAmountButton);
+        TextView addOzAmmountValue = (TextView) findViewById(R.id.AddOzAmountValue);
+
+        addOnClickDeleteDefaultTexToInputField(addOzAmmountValue, context);
+
+        addSaveNewCupListenerToButton(addCupButton, context);
+        addSaveNewDrinkListenerToButton(addOzAmmountButton, context);
 
     }
 
@@ -65,30 +70,50 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    private void saveNewDrink(Context context){
-        Drink newDrink = new Drink();
+    private void saveNewDrink(int quantity, Context context){
+        Drink newDrink = new Drink(quantity);
         long newDrinkID = newDrink.save(context);
         Long id = Long.valueOf(newDrinkID);
         String successMessage = "your cup was added. ID: " + id.toString();
         displayShortToast(context, successMessage);
     }
 
-    private void updateDrinksLog(Context context){
+    private void displayAmountConsumedToday(Context context){
         final TextView displayDrinksTextBox = (TextView) findViewById(R.id.displayDrinksTextBox);
 
         String drinksLog = "";
-        Integer todaysQuantity = Drink.getTodaysQuantityInCups(context);
-        displayDrinksTextBox.setText("Today you have drank " + todaysQuantity.toString() + " cups!");
+        Double todaysQuantity = Drink.getTodaysQuantityInCups(context);
+        displayDrinksTextBox.setText("Today you have consumed " + todaysQuantity.toString() + " cups!");
     }
 
-    private void addSaveCupListenerToButton(final Context context){
-        final Button addCupButton = (Button) findViewById(R.id.AddCupButton);
-        addCupButton.setOnClickListener(new View.OnClickListener() {
-                                            public void onClick(View v){
-                                                saveNewDrink(context);
-                                                updateDrinksLog(context);
-                                            }
-                                        }
+    private void addSaveNewCupListenerToButton(Button button, final Context context){
+        button.setOnClickListener(new View.OnClickListener() {
+                                      public void onClick(View v) {
+                                          int quantity = 8;
+                                          saveNewDrink(quantity, context);
+                                          displayAmountConsumedToday(context);
+                                      }
+                                  }
         );
+    }
+
+    private void addSaveNewDrinkListenerToButton(Button button, final Context context){
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                TextView ozAmountInput = (TextView) findViewById(R.id.AddOzAmountValue);
+                int quantity = Integer.parseInt(ozAmountInput.getText().toString());
+                saveNewDrink(quantity, context);
+                displayAmountConsumedToday(context);
+            }
+        }
+        );
+    }
+
+    private void addOnClickDeleteDefaultTexToInputField(final TextView inputField, Context context){
+        inputField.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                inputField.setText("");
+            }
+        });
     }
 }

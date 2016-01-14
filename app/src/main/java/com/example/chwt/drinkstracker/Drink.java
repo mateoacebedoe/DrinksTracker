@@ -21,10 +21,10 @@ public class Drink {
     public int quantity_in_oz;
     public String timestamp;
 
-    public Drink(){
+    public Drink(int quantity){
         id = -1;
         type = "water";
-        quantity_in_oz = 8;
+        quantity_in_oz = quantity;
         timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
@@ -127,7 +127,7 @@ public class Drink {
         return lastDrink;
     }
 
-    public static int getTodaysQuantityInCups(Context context){
+    public static double getTodaysQuantityInCups(Context context){
         return convertOzToCups(Drink.sumDrinkQuantity(Drink.getTodaysDrinks(context)));
     }
 
@@ -142,8 +142,8 @@ public class Drink {
     //Private Methods
 
 
-    private static int convertOzToCups(int oz){
-        return oz / 8;
+    private static double convertOzToCups(int oz){
+        return oz / 8.0;
     }
 
     private static int sumDrinkQuantity(Drink[] Drinks){

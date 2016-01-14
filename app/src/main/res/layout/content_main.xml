@@ -34,4 +34,34 @@
         android:textSize="30dp"
         android:layout_below="@+id/textView2" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Or... Add Oz ammount: "
+        android:id="@+id/textView3"
+        android:layout_below="@+id/AddCupButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AddOzAmountButton"
+        android:id="@+id/AddOzAmountButton"
+        android:layout_below="@+id/AddOzAmountValue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/AddOzAmountValue"
+        android:layout_below="@+id/textView3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="30" />
+
 </RelativeLayout>
