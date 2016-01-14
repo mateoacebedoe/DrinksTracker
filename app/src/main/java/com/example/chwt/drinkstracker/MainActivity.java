@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         String drinksLog = "";
         Double todaysQuantity = Drink.getTodaysQuantityInCups(context);
-        displayDrinksTextBox.setText("Today you have consumed " + todaysQuantity.toString() + " cups!");
+        displayDrinksTextBox.setText("Today you have consumed " + todaysQuantity.toString() + " cups of water!");
     }
 
     private void addSaveNewCupListenerToButton(Button button, final Context context){

@@ -47,7 +47,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AddOzAmountButton"
+        android:text="Add Amount"
         android:id="@+id/AddOzAmountButton"
         android:layout_below="@+id/AddOzAmountValue"
         android:layout_alignParentLeft="true"
