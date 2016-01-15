@@ -9,15 +9,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1 Cup"
-        android:id="@+id/AddCupButton"
-        android:layout_alignTop="@+id/AddOzAmountButton"
-        android:layout_toRightOf="@+id/AddOzAmountButton"
-        android:layout_toEndOf="@+id/AddOzAmountButton" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,25 +29,52 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="OZ"
-        android:id="@+id/AddOzAmountButton"
-        android:layout_alignBottom="@+id/AddOzAmountValue"
-        android:layout_toRightOf="@+id/AddOzAmountValue"
-        android:layout_toEndOf="@+id/AddOzAmountValue" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/AddOzAmountValue"
-        android:text="30"
-        android:width="40dp"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/AddOzAmountValue"
+            android:text="30"
+            android:layout_below="@+id/textView3"
+            android:layout_alignLeft="@+id/textView3"
+            android:layout_alignStart="@+id/textView3"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="true"
+            android:textAlignment="center"
+            android:width="40dp"
+            android:layout_weight="33"
+            android:textSize="30dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="OZ"
+            android:id="@+id/AddOzAmountButton"
+            android:layout_alignBottom="@+id/AddOzAmountValue"
+            android:layout_toRightOf="@+id/AddOzAmountValue"
+            android:layout_toEndOf="@+id/AddOzAmountValue"
+            android:layout_weight="33" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="1 Cup"
+            android:id="@+id/AddCupButton"
+            android:layout_alignTop="@+id/AddOzAmountButton"
+            android:layout_toRightOf="@+id/AddOzAmountButton"
+            android:layout_toEndOf="@+id/AddOzAmountButton"
+            android:layout_alignParentEnd="false"
+            android:layout_weight="33"
+            android:textAlignment="center" />
+    </LinearLayout>
 
 </RelativeLayout>
