@@ -64,7 +64,8 @@ public class Drink {
         String[] projection = DrinkContract.Drink.getAllColumns();
 
         String todaysDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        String selection = DrinkContract.Drink.COLUMN_NAME_TIMESTAMP + ">= '" + todaysDate + "';";
+        String selection = DrinkContract.Drink.COLUMN_NAME_TIMESTAMP + " LIKE '" + todaysDate + "%';";
+        Log.w("#######", selection);
 
         Cursor cursor = db.query(
                 DrinkContract.Drink.TABLE_NAME,
@@ -87,6 +88,7 @@ public class Drink {
                 String timestamp = cursor.getString(cursor.getColumnIndex(DrinkContract.Drink.COLUMN_NAME_TIMESTAMP));
 
                 drinkList[i] = new Drink(id, type, quantity, timestamp);
+                Log.w("@@@@@@@", drinkList[i].toString());
                 cursor.moveToNext();
                 i = i + 1;
             }

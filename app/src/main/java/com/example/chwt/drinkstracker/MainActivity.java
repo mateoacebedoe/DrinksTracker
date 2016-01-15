@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     private void displayShortToast(Context context, String message){
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(context, message, duration);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
@@ -101,9 +103,15 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 TextView ozAmountInput = (TextView) findViewById(R.id.AddOzAmountValue);
-                int quantity = Integer.parseInt(ozAmountInput.getText().toString());
-                saveNewDrink(quantity, context);
-                displayAmountConsumedToday(context);
+                CharSequence quantityText = ozAmountInput.getText();
+
+               try {
+                   int quantity = Integer.parseInt(quantityText.toString());
+                   saveNewDrink(quantity, context);
+                   displayAmountConsumedToday(context);
+               }catch (NumberFormatException e){
+                   displayShortToast(context, "Please enter a valid number");
+               }
             }
         }
         );

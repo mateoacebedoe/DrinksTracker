@@ -9,20 +9,14 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main" tools:context=".MainActivity">
 
-    <TextView android:text="Your Drinks Today" android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="30dp"
-        android:id="@+id/textView2" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add New Cup"
+        android:text="1 Cup"
         android:id="@+id/AddCupButton"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/displayDrinksTextBox" />
+        android:layout_alignTop="@+id/AddOzAmountButton"
+        android:layout_toRightOf="@+id/AddOzAmountButton"
+        android:layout_toEndOf="@+id/AddOzAmountButton" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -30,28 +24,28 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LOG"
         android:id="@+id/displayDrinksTextBox"
-        android:layout_alignParentStart="true"
         android:textSize="30dp"
-        android:layout_below="@+id/textView2" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Or... Add Oz ammount: "
+        android:text="How much water did you drink? "
         android:id="@+id/textView3"
-        android:layout_below="@+id/AddCupButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/displayDrinksTextBox"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="36dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Amount"
+        android:text="OZ"
         android:id="@+id/AddOzAmountButton"
-        android:layout_below="@+id/AddOzAmountValue"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignBottom="@+id/AddOzAmountValue"
+        android:layout_toRightOf="@+id/AddOzAmountValue"
+        android:layout_toEndOf="@+id/AddOzAmountValue" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,9 +53,10 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/AddOzAmountValue"
+        android:text="30"
+        android:width="40dp"
         android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="30" />
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
 
 </RelativeLayout>
